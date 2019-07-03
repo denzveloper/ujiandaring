@@ -1,5 +1,7 @@
 {
   "name": "ujianpol",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
