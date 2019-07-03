@@ -4,6 +4,9 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -13,10 +16,10 @@ export class AppComponent {
     {
       title: 'Home',
       url: '/home',
-      icon: 'home'
+      icon: 'ios-home'
     },
     {
-      title: 'List',
+      title: 'About',
       url: '/list',
       icon: 'list'
     }
@@ -25,7 +28,9 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private store: Storage,
+    private nav: NavController
   ) {
     this.initializeApp();
   }
@@ -33,7 +38,13 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#ffffff');
       this.splashScreen.hide();
     });
+  }
+
+  logout(){
+    this.store.remove('user');
+    this.nav.navigateRoot('/login');
   }
 }
