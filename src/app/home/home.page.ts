@@ -1,29 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { NavController, MenuController } from '@ionic/angular';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
-  constructor(
-    private storage: Storage,
-    private menu: MenuController,
-    private nav: NavController
-  ) {
-    this.menu.enable(true);
-  }
+  constructor() {}
 
-  ngOnInit(){
-    this.storage.get('user').then(user => {
-      if(user == null){
-        this.nav.navigateRoot('/login');
-      }
-    });
-  }
-
-  
 }
