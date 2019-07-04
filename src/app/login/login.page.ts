@@ -26,6 +26,10 @@ export class LoginPage implements OnInit {
    }
 
   ngOnInit() {
+    this.store.get('user').then(user => {
+      if(user != null){
+        this.nav.navigateRoot('/home');
+      }});
   }
 
   async presentAlert(msg) {
@@ -62,7 +66,7 @@ export class LoginPage implements OnInit {
           header: "Error",
           message: "Koneksi gagal!"
         });
-        console.log(this.data);
+        console.log(error);
       });
     }
   }

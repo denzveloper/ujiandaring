@@ -9,6 +9,8 @@ import { NavController, MenuController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
+  public detail: any;
+
   constructor(
     private store: Storage,
     private menu: MenuController,
@@ -21,6 +23,10 @@ export class HomePage implements OnInit {
     this.store.get('user').then(user => {
       if(user == null){
         this.nav.navigateRoot('/login');
+      }else{
+          this.store.get('user').then((user) => {
+            this.detail = user.detail;
+          });
       }
     });
   }
