@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.ujianonline" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.dzen.ujianonline" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Ujian Online</name>
     <description>Ujian berbasis jaringan menggunakan ponsel cerdas.</description>
     <author email="dandyoctavian@gmail.com" href="https://denzveloper.github.io">IDENZVELOPER DzEN/DzEN</author>
@@ -89,3 +89,4 @@
     <plugin name="cordova-sqlite-storage" spec="3.2.1" />
     <engine name="android" spec="7.1.4" />
 </widget>
+

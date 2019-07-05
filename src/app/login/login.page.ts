@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { NavController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -14,16 +14,18 @@ export class LoginPage implements OnInit {
     nim: '', 
     password: ''
   }
-  data:any;
+  data: any;
+  isLoading = false;
   constructor(
     private alertController: AlertController,
     private auth: AuthService,
     private menu: MenuController,
     private store: Storage,
-    private nav: NavController
+    private nav: NavController,
+    private loading: LoadingController
   ) {
     this.menu.enable(false);
-   }
+  }
 
   ngOnInit() {
     this.store.get('user').then(user => {
@@ -42,18 +44,44 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+  async presentLoading(msg) {
+    this.isLoading = true;
+    return await this.loading.create({
+      translucent: true,
+      keyboardClose: false,
+      spinner: 'crescent',
+      message: msg.message
+    }).then(a => {
+      a.present().then(() => {
+        console.log('presented');
+        if (!this.isLoading) {
+          a.dismiss().then(() => console.log('abort presenting'));
+        }
+      });
+    });
+  }
+
+  async presentLoadingDiss() {
+    this.isLoading = false;
+    return await this.loading.dismiss().then(() => console.log('dismissed'));
+  }
+
   login(){
     if(this.form.nim == "" || this.form.password == ""){
       this.presentAlert({
         header: "Error",
         message: "Form harus diisi!"
-      })
+      });
     }else{
+      this.presentLoading({
+        message: 'Loading'
+      });
       this.auth.dologin(this.form).subscribe(data=> {
         this.data = data;
+        this.presentLoadingDiss();
         if(this.data.meta.status_code == 200){
           this.store.set('user', this.data.data);
-          this.nav.navigateRoot('/home');
+          this.nav.navigateRoot('/tabs');
         }else{
           this.presentAlert({
             header: "Gagal Login",
