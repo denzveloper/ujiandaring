@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { MenuController, NavController } from '@ionic/angular';
 
 @Component({
@@ -10,6 +11,7 @@ export class SoalPage implements OnInit {
 
   public soal: any;
   private x: any;
+  public y: any;
 
   constructor(
     private menu: MenuController,
@@ -24,9 +26,16 @@ export class SoalPage implements OnInit {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-        //this.x = this.store.get('num');
+        this.store.get('num').then((num) => {
+          this.x = num;
+        });
+        this.y = this.x++;
+        console.log(this.y);
+        console.log(this.x);
         this.store.get('user').then((user) => {
-          this.soal = user.soal[0];
+          var obj = {};
+          obj = user.soal;
+          this.soal = obj[this.x];
         });
       }
     });

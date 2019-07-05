@@ -16,14 +16,14 @@
         <ion-card-subtitle>Silahkan Cek profil Anda</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p>Nama: {{(detail.nama.length>12)? (detail.nama | slice:0:12)+'..':(detail.nama)}}</p>
+        <p>Nama: {{(detail.nama.length>24)? (detail.nama | slice:0:24)+'..':(detail.nama)}}</p>
         <p>Nim: {{detail.nim}}</p>
         <p>Kelas: {{detail.kelas}}</p>
-        <p>Pelajaran: {{(detail.mapel.length>12)? (detail.mapel | slice:0:12)+'..':(detail.mapel)}}</p>
+        <p>Pelajaran: {{(detail.mapel.length>24)? (detail.mapel | slice:0:24)+'..':(detail.mapel)}}</p>
         <p>Waktu: {{detail.waktu}} Menit</p>
-        <p>Dosen: {{(detail.dosen.length>12)? (detail.doesn | slice:0:12)+'..':(detail.dosen)}}</p>
+        <p>Dosen: {{(detail.dosen.length>24)? (detail.doesn | slice:0:24)+'..':(detail.dosen)}}</p>
         <br>
-        <ion-button type="submit" expand="full" color="primary" (click)="beginexam()">Mulai Ujian!</ion-button>
+        <ion-button expand="full" color="primary" (click)="beginexam()">Mulai Ujian!</ion-button>
       </ion-card-content>
     </ion-card>
 
