@@ -32,7 +32,6 @@ export class HomePage implements OnInit {
   }
 
   beginexam(){
-    this.store.set('num', 0)
     this.nav.navigateRoot('/soal');
   }
   

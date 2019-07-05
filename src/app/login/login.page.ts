@@ -14,8 +14,8 @@ export class LoginPage implements OnInit {
     nim: '', 
     password: ''
   }
-  data: any;
   isLoading = false;
+  data:any;
   constructor(
     private alertController: AlertController,
     private auth: AuthService,
@@ -44,13 +44,13 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  async presentLoading(msg) {
+  async presentLoading() {
     this.isLoading = true;
     return await this.loading.create({
       translucent: true,
       keyboardClose: false,
       spinner: 'crescent',
-      message: msg.message
+      message: "Loading"
     }).then(a => {
       a.present().then(() => {
         console.log('presented');
@@ -71,18 +71,17 @@ export class LoginPage implements OnInit {
       this.presentAlert({
         header: "Error",
         message: "Form harus diisi!"
-      });
+      })
     }else{
-      this.presentLoading({
-        message: 'Loading'
-      });
+      this.presentLoading();
       this.auth.dologin(this.form).subscribe(data=> {
         this.data = data;
         this.presentLoadingDiss();
         if(this.data.meta.status_code == 200){
           this.store.set('user', this.data.data);
-          this.nav.navigateRoot('/tabs');
+          this.nav.navigateRoot('/home');
         }else{
+          this.presentLoadingDiss();
           this.presentAlert({
             header: "Gagal Login",
             message: this.data.meta.message
@@ -90,6 +89,7 @@ export class LoginPage implements OnInit {
         }
         //console.log(this.data);
       }, error => {
+        this.presentLoadingDiss();
         this.presentAlert({
           header: "Error",
           message: "Koneksi gagal!"

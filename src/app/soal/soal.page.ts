@@ -8,6 +8,9 @@ import { MenuController, NavController } from '@ionic/angular';
 })
 export class SoalPage implements OnInit {
 
+  public soal: any;
+  private x: any;
+
   constructor(
     private menu: MenuController,
     private store: Storage,
@@ -20,16 +23,31 @@ export class SoalPage implements OnInit {
     this.store.get('user').then(user => {
       if(user == null){
         this.nav.navigateRoot('/login');
+      }else{
+        //this.x = this.store.get('num');
+        this.store.get('user').then((user) => {
+          this.soal = user.soal[0];
+        });
       }
     });
   }
 
   next(){
-    //
+    this.x++;
+    if(this.soal.x != null){
+      this.store.set('num', this.x);
+      this.nav.navigateRoot('/soal');
+    }else{
+      this.nav.navigateRoot('/nilai');
+    }
   }
 
   back(){
-    //
+    this.x--;
+    if(this.soal.x != null){
+      this.store.set('num', this.x);
+      this.nav.navigateRoot('/soal');
+    }
   }
 
 }

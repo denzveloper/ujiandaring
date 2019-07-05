@@ -44,6 +44,7 @@ export class AppComponent {
   }
 
   logout(){
+    console.log('Loging out');
     this.store.remove('user');
     this.nav.navigateRoot('/login');
   }
