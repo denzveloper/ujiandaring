@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-soal',
@@ -10,15 +10,26 @@ import { MenuController, NavController } from '@ionic/angular';
 export class SoalPage implements OnInit {
 
   public soal: any;
-  private x: any;
+  public x: any;
   public y: any;
+  public obj = {};
 
   constructor(
     private menu: MenuController,
     private store: Storage,
-    private nav: NavController
+    private nav: NavController,
+    private toast: ToastController
   ) {
     this.menu.enable(false);
+  }
+
+  async toastmsg() {
+    const toast = await this.toast.create({
+      message: 'Kamu sudah disoal pertama',
+      duration: 2000,
+      position: "top"
+    });
+    toast.present();
   }
 
   ngOnInit() {
@@ -26,37 +37,44 @@ export class SoalPage implements OnInit {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-        this.store.get('num').then((num) => {
-          this.x = num;
-        });
-        this.y = this.x++;
-        console.log(this.y);
-        console.log(this.x);
+        this.x = parseInt(localStorage.getItem("num"));
+        this.y = this.x+1;
         this.store.get('user').then((user) => {
-          var obj = {};
-          obj = user.soal;
-          this.soal = obj[this.x];
+          this.obj = user.soal;
+          this.soal = this.obj[this.x];
         });
       }
     });
   }
 
   next(){
-    this.x++;
-    if(this.soal.x != null){
-      this.store.set('num', this.x);
-      this.nav.navigateRoot('/soal');
+    var tmp = this.x+1;
+    console.log(this.x);
+    if(this.obj[tmp] != null){
+      console.log("show a:"+tmp);
+      this.x = this.x+1;
+      localStorage.setItem('num', this.x.toString());
+      this.ngOnInit();
     }else{
       this.nav.navigateRoot('/nilai');
     }
   }
 
   back(){
-    this.x--;
-    if(this.soal.x != null){
-      this.store.set('num', this.x);
-      this.nav.navigateRoot('/soal');
+    var tmp = this.x-1;
+    console.log(this.x);
+    if(this.obj[tmp] != null){
+      console.log("show a:"+tmp);
+      this.x = this.x-1;
+      localStorage.setItem('num', this.x.toString());
+      this.ngOnInit();
+    }else{
+      this.toastmsg();
     }
+  }
+
+  finish(){
+    this.nav.navigateRoot('/nilai');
   }
 
 }

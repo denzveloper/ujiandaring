@@ -32,7 +32,9 @@ export class HomePage implements OnInit {
   }
 
   beginexam(){
-    this.store.set('num', 0);
+    var num = 0;
+    localStorage.setItem('num', num.toString());
+    console.log(num);
     this.nav.navigateRoot('/soal');
   }
   
