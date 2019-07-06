@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { MenuController, NavController, ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-soal',
@@ -18,16 +18,47 @@ export class SoalPage implements OnInit {
     private menu: MenuController,
     private store: Storage,
     private nav: NavController,
-    private toast: ToastController
+    private toast: ToastController,
+    private alertController: AlertController
   ) {
     this.menu.enable(false);
   }
 
+  async presentAlert() {
+    let choice
+    const alert = await this.alertController.create({
+        header: "Konfirmasi",
+        message: "Ujian selesai?",
+        buttons: [{
+            text: 'Ya',
+            handler: () => {
+                alert.dismiss(true)
+                return false
+            }
+        }, {
+            text: 'Belum',
+            handler: () => {
+                alert.dismiss(false);
+                return false;
+            }
+        }]
+    });
+
+    await alert.present();
+    await alert.onDidDismiss().then((data) => {
+        choice = data
+    })
+    return choice;
+  }
+
   async toastmsg() {
     const toast = await this.toast.create({
-      message: 'Kamu sudah disoal pertama',
-      duration: 2000,
-      position: "top"
+      message: 'Sudah Disoal Pertama',
+      duration: 1500,
+      position: "top",
+      mode: "md",
+      color: "dark",
+      showCloseButton: true
     });
     toast.present();
   }
@@ -56,7 +87,11 @@ export class SoalPage implements OnInit {
       localStorage.setItem('num', this.x.toString());
       this.ngOnInit();
     }else{
-      this.nav.navigateRoot('/nilai');
+      this.presentAlert().then((res) => {
+        if(res.data){
+          this.nav.navigateRoot('/hasil');
+        }
+      });
     }
   }
 
@@ -74,7 +109,12 @@ export class SoalPage implements OnInit {
   }
 
   finish(){
-    this.nav.navigateRoot('/nilai');
+    this.presentAlert().then((res) => {
+      console.log(res);
+      if(res.data){
+        this.nav.navigateRoot('/hasil');
+      }
+    });
   }
 
 }

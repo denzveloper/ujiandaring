@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button start (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
-    <ion-title middle >Pertanyaan {{y}}</ion-title>
-    <ion-button end (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
-    <ion-button end (click)="finish()"><ion-icon name="ios-checkmark"></ion-icon></ion-button>
+    <ion-button slot="start" size="small" color="light" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
+    <ion-title>No. {{y}}</ion-title>
+    <ion-button slot="end" size="small" color="light" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
+    <ion-button slot="end" size="small" color="light" (click)="finish()"><ion-icon name="ios-checkmark"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 

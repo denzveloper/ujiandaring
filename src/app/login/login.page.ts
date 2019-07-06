@@ -27,13 +27,6 @@ export class LoginPage implements OnInit {
     this.menu.enable(false);
   }
 
-  ngOnInit() {
-    this.store.get('user').then(user => {
-      if(user != null){
-        this.nav.navigateRoot('/home');
-      }});
-  }
-
   async presentAlert(msg) {
     const alert = await this.alertController.create({
       header: msg.header,
@@ -65,6 +58,14 @@ export class LoginPage implements OnInit {
     this.isLoading = false;
     return await this.loading.dismiss().then(() => console.log('dismissed'));
   }
+
+  ngOnInit() {
+    this.store.get('user').then(user => {
+      if(user != null){
+        this.nav.navigateRoot('/home');
+      }});
+  }
+
 
   login(){
     if(this.form.nim == "" || this.form.password == ""){
