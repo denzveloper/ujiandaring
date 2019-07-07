@@ -1,6 +1,6 @@
-# ujiandaring
+# Ujian Daring (UjiDaring Client)
 
-Ujian Daring Polindra(Client)
+Ujian Daring Polindra(Client) developed with ❤ by **DzEN/DzEN**(*known as **DENZVELOPER***) and this application supported by **Politeknik Negeri Indramayu**. build with Ionic 4 with Angular. This Apps for my "*Tugas Akhir*" D3-*Teknik Informatika*.
 
 Ujian Daring is a App can help teacher to get result the exam(this repository contain frontend only).
 
@@ -27,4 +27,4 @@ see references:
     ~~~~
 
 2. Get Result Exam:
-> No Avaiable Yet
+    > No Avaiable Yet
