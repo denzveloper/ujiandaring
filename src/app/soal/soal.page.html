@@ -9,9 +9,17 @@
 
 <ion-content>
   <ion-card-header>
-    <ion-card-title>{{soal.quest}}</ion-card-title>
+    <ion-card-subtitle>{{soal.quest}}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-
+    <ion-item *ngIf="soal.kind == 1">
+      <ion-input type="text" placeholder="Jawaban"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="soal.kind == 2">
+      checklist answer
+    </ion-item>
+    <ion-item *ngIf="soal.kind == 3">
+      radio answer
+    </ion-item>
   </ion-card-content>
 </ion-content>
