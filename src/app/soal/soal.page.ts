@@ -10,6 +10,7 @@ import { MenuController, NavController, ToastController, AlertController } from 
 export class SoalPage implements OnInit {
 
   public soal: any;
+  public answer: any[] = [];
   public x: any;
   public y: any;
   public obj = {};
@@ -73,6 +74,20 @@ export class SoalPage implements OnInit {
         this.store.get('user').then((user) => {
           this.obj = user.soal;
           this.soal = this.obj[this.x];
+          console.log('jenis:'+this.soal.kind);
+          if(this.soal.kind > 1){
+            console.log("Jawaban Multi");
+            this.answer = [];
+            for(let key in this.soal.answer){
+              this.answer.push({
+                key: key,
+                text: this.soal.answer[key]
+              });
+              console.log(this.soal.answer[key]);
+            }
+          }else{
+            console.log("Jawaban Essay");
+          }
         });
       }
     });
