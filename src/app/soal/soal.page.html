@@ -20,10 +20,10 @@
     </div>
     <div *ngIf="soal.kind == 2">
       <ion-list>
-      <ion-radio-group allow-empty-selection>
+      <ion-radio-group allow-empty-selection [(ngModel)]="jawaban">
       <ion-item *ngFor="let cat of answer">
         <ion-label>{{cat.text}}</ion-label>
-        <ion-radio slot="end" name="{{y}}" [(ngModel)]="jawaban" value="{{cat.key}}"></ion-radio>
+        <ion-radio slot="end" value="{{cat.key}}"></ion-radio>
       </ion-item>
       </ion-radio-group>
       </ion-list>
