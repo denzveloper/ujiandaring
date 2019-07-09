@@ -23,7 +23,7 @@
       <ion-radio-group allow-empty-selection>
       <ion-item *ngFor="let cat of answer">
         <ion-label>{{cat.text}}</ion-label>
-        <ion-radio slot="end" name="{{y}}" value="{{cat.key}}"></ion-radio>
+        <ion-radio slot="end" name="{{y}}" [(ngModel)]="jawaban" value="{{cat.key}}"></ion-radio>
       </ion-item>
       </ion-radio-group>
       </ion-list>

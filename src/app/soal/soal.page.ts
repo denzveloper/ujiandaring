@@ -8,7 +8,7 @@ import { MenuController, NavController, ToastController, AlertController } from 
   styleUrls: ['./soal.page.scss'],
 })
 export class SoalPage implements OnInit {
-
+  public arrayTmp = [];
   public jawaban : any;
 
   public soal: any;
@@ -100,10 +100,11 @@ export class SoalPage implements OnInit {
   }
 
   next(){
+    this.storeanswer();
     var tmp = this.x+1;
     console.log(this.x);
     if(this.obj[tmp] != null){
-      console.log("show a:"+tmp);
+      console.log("show question:"+tmp);
       this.x = this.x+1;
       localStorage.setItem('num', this.x.toString());
       this.ngOnInit();
@@ -117,10 +118,11 @@ export class SoalPage implements OnInit {
   }
 
   back(){
+    this.storeanswer();
     var tmp = this.x-1;
     console.log(this.x);
     if(this.obj[tmp] != null){
-      console.log("show a:"+tmp);
+      console.log("show quest:"+tmp);
       this.x = this.x-1;
       localStorage.setItem('num', this.x.toString());
       this.ngOnInit();
@@ -136,6 +138,16 @@ export class SoalPage implements OnInit {
         this.nav.navigateRoot('/hasil');
       }
     });
+  }
+
+  async storeanswer(){
+    this.arrayTmp[this.x] = [this.jawaban];
+
+    console.log(this.arrayTmp);
+    await this.store.set('jawab', this.arrayTmp);
+    this.store.get('jawab').then(data => {
+      console.log('store =>',data);
+    })
   }
 
 }
