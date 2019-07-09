@@ -141,13 +141,14 @@ export class SoalPage implements OnInit {
   }
 
   async storeanswer(){
-    this.arrayTmp[this.x] = [this.jawaban];
+    this.arrayTmp[this.x] = this.jawaban;
 
     console.log(this.arrayTmp);
     await this.store.set('jawab', this.arrayTmp);
     this.store.get('jawab').then(data => {
       console.log('store =>',data);
-    })
+    });
+    
   }
 
 }
