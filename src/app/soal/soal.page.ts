@@ -148,7 +148,6 @@ export class SoalPage implements OnInit {
     this.store.get('jawab').then(data => {
       console.log('store =>',data);
     });
-    
   }
 
 }
