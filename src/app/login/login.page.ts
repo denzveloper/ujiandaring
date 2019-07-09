@@ -14,8 +14,10 @@ export class LoginPage implements OnInit {
     nim: '', 
     password: ''
   }
+
   isLoading = false;
   data:any;
+  
   constructor(
     private alertController: AlertController,
     private auth: AuthService,

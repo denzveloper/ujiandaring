@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button slot="start" size="small" color="light" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
+    <ion-button slot="start" size="small" fill="clear" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
     <ion-title>No. {{y}}</ion-title>
-    <ion-button slot="end" size="small" color="light" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
-    <ion-button slot="end" size="small" color="light" (click)="finish()"><ion-icon name="ios-checkmark"></ion-icon></ion-button>
+    <ion-button slot="end" size="small" fill="clear" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
+    <ion-button slot="end" size="small" fill="clear" color="success" (click)="finish()"><ion-icon name="ios-checkmark"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -14,8 +14,8 @@
   <ion-card-content>
     <div *ngIf="soal.kind == 1">
       <ion-item>
-        <ion-label position="floating">Jawaban:</ion-label>
-        <ion-input type="text" name="{{y}}" placeholder="Tulis Jawaban"></ion-input>
+        <ion-label position="floating">Jawab</ion-label>
+        <ion-textarea name="jwb" [(ngModel)]="jawaban" rows="6" cols="20" placeholder="Tulis Jawaban"></ion-textarea>
       </ion-item>
     </div>
     <div *ngIf="soal.kind == 2">

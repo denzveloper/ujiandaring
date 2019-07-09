@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { MenuController, NavController, ToastController, AlertController } from '@ionic/angular';
 
@@ -8,6 +8,8 @@ import { MenuController, NavController, ToastController, AlertController } from 
   styleUrls: ['./soal.page.scss'],
 })
 export class SoalPage implements OnInit {
+
+  public jawaban : any;
 
   public soal: any;
   public answer: any[] = [];
@@ -20,7 +22,8 @@ export class SoalPage implements OnInit {
     private store: Storage,
     private nav: NavController,
     private toast: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private zone: NgZone
   ) {
     this.menu.enable(false);
   }
@@ -86,6 +89,9 @@ export class SoalPage implements OnInit {
               console.log(this.soal.answer[key]);
             }
           }else{
+            this.zone.run(() => {
+              this.jawaban = '';
+            });
             console.log("Jawaban Essay");
           }
         });
