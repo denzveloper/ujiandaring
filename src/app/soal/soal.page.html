@@ -1,38 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button slot="start" size="small" fill="clear" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
-    <ion-title>No. {{y}}</ion-title>
+    <ion-button slot="start" size="small" fill="clear" (click)="back()" disable><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
+    <ion-title>No {{index}}</ion-title>
     <ion-button slot="end" size="small" fill="clear" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
     <ion-button slot="end" size="small" fill="clear" color="success" (click)="finish()"><ion-icon name="ios-checkmark"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-slides #slides (ionSlideWillChange)="doCheck()">
+<ion-slide *ngFor="let sl of soal; let iSoal = index" >
+  <ion-card>
   <ion-card-header>
-    <ion-card-subtitle>{{soal.quest}}</ion-card-subtitle>
+    <ion-card-subtitle>{{sl.quest}}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-    <div *ngIf="soal.kind == 1">
-      <ion-item>
-        <ion-label position="floating">Jawab</ion-label>
-        <ion-textarea name="jwb" [(ngModel)]="jawaban" rows="6" cols="20" placeholder="Tulis Jawaban"></ion-textarea>
+      <ion-item *ngIf="sl.type == 1">
+        <ion-textarea [(ngModel)]="sl.jawaban">
+        </ion-textarea>
       </ion-item>
-    </div>
-    <div *ngIf="soal.kind == 2">
-      <ion-list>
-      <ion-radio-group allow-empty-selection [(ngModel)]="jawaban">
-      <ion-item *ngFor="let cat of answer">
-        <ion-label>{{cat.text}}</ion-label>
-        <ion-radio slot="end" value="{{cat.key}}"></ion-radio>
-      </ion-item>
-      </ion-radio-group>
+      <ion-list *ngIf="sl.type == 2">
+        <ion-radio-group name="auto">
+          <ion-item *ngFor="let jwb of sl.jawaban; let iJwb = index" >
+            <ion-label>{{jwb.pilihan}}</ion-label>
+            <ion-radio value="{{jwb.pilihan}}" mode="md" (click)="pilihanGanda(iSoal, iJwb)" checked="{{jwb.selected}}"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
       </ion-list>
-    </div>
-    <div *ngIf="soal.kind == 3">
-      <ion-item *ngFor="let cat of answer">
-        <ion-label>{{cat.text}}</ion-label>
-        <ion-checkbox slot="end" name="{{y}}" value="{{cat.key}}"></ion-checkbox>
-      </ion-item>
-    </div>
+  
+      <ion-list *ngIf="sl.type == 3" >
+        <ion-item *ngFor="let jwb of sl.jawaban" >
+          <ion-label>{{jwb.pilihan}}</ion-label>
+          <ion-checkbox [(ngModel)]="jwb.selected" (ionChange)="multiChoice()"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+  
   </ion-card-content>
+</ion-card>
+</ion-slide>
+</ion-slides>
 </ion-content>

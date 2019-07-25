@@ -19,6 +19,11 @@ export class AppComponent {
       icon: 'ios-home'
     },
     {
+      title: 'Akun',
+      url: '/pass',
+      icon: 'ios-home'
+    },
+    {
       title: 'About',
       url: '/list',
       icon: 'ios-information-circle'

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>test-soal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-slides style="height: 100vh"s>
+  <ion-slide *ngFor="let sl of soal; let iSoal = index" >
+    <h1>{{sl.soal}}</h1>
+    <br><br><br>
+    <ion-item *ngIf="sl.type == 1">
+      <ion-textarea [(ngModel)]="sl.jawaban">
+      </ion-textarea>
+      <ion-button (click)="esay()">
+        Next
+      </ion-button>
+    </ion-item>
+    <ion-list *ngIf="sl.type == 2">
+      <ion-radio-group name="auto">
+        <ion-item *ngFor="let jwb of sl.jawaban; let iJwb = index" >
+          <ion-label>{{jwb.pilihan}} - {{jwb.selected}}</ion-label>
+          <ion-radio value="{{jwb.pilihan}}" mode="md" (click)="pilihanGanda(iSoal, iJwb)" checked="{{jwb.selected}}"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    <ion-list *ngIf="sl.type == 3" >
+      <ion-item *ngFor="let jwb of sl.jawaban" >
+        <ion-label>{{jwb.pilihan}}</ion-label>
+        <ion-checkbox [(ngModel)]="jwb.selected" (ionChange)="multiChoice()"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+    <ion-item *ngIf="iSoal == soal.length-1">
+      <ion-button>
+        finish
+      </ion-button>
+    </ion-item>
+  </ion-slide>
+</ion-slides>
+</ion-content>

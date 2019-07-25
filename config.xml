@@ -89,4 +89,3 @@
     <plugin name="cordova-sqlite-storage" spec="3.2.1" />
     <engine name="android" spec="7.1.4" />
 </widget>
-
