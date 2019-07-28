@@ -24,17 +24,15 @@ export class HomePage implements OnInit {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-          this.store.get('user').then((user) => {
-            this.detail = user.detail;
-          });
+        this.store.get('user').then((user) => {
+          this.detail = user.detail;
+        });
       }
     });
   }
 
   beginexam(){
-    var num = 0;
-    localStorage.setItem('num', num.toString());
-    console.log(num);
+    // if(th)
     this.nav.navigateRoot('/soal');
   }
   

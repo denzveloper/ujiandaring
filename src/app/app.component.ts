@@ -12,16 +12,17 @@ import { NavController } from '@ionic/angular';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+  public detail: any;
   public appPages = [
     {
-      title: 'Home',
+      title: 'Ujian',
       url: '/home',
-      icon: 'ios-home'
+      icon: 'ios-paper'
     },
     {
       title: 'Akun',
       url: '/pass',
-      icon: 'ios-home'
+      icon: 'ios-contact'
     },
     {
       title: 'About',
@@ -35,7 +36,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private store: Storage,
-    private nav: NavController
+    private nav: NavController,
   ) {
     this.initializeApp();
   }
@@ -45,6 +46,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#ffffff');
       this.splashScreen.hide();
+    });
+    this.store.get('user').then((user) => {
+      this.detail = user.detail;
     });
   }
 

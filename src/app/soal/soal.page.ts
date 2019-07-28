@@ -9,12 +9,12 @@ import { IonSlides, NavController, AlertController, MenuController } from '@ioni
 })
 export class SoalPage implements OnInit {
   @ViewChild(IonSlides) slides: IonSlides;
-  // soal = [{
-//     soal: 'Dimana Letak wakanda?',
+//   soal = [{
+//     quest: 'Dimana Letak wakanda?',
 //     type: 1,
 //     jawaban: [],
 //   },{
-//     soal: 'Siapa waifu terbaik musim ini?',
+//     quest: 'Siapa waifu terbaik musim ini?',
 //     type: 2,
 //     jawaban: [{
 
@@ -34,7 +34,7 @@ export class SoalPage implements OnInit {
 //     ]
 //   },
 //   {
-//     soal: 'Anime Terbaik?',
+//     quest: 'Anime Terbaik?',
 //     type: 3,
 //     jawaban: [{
 
@@ -75,8 +75,8 @@ export class SoalPage implements OnInit {
         this.nav.navigateRoot('/login');
       }else{
         this.storage.get('soal').then(soal => {
-          if(user !== null){
-            this.soal = soal.soal;
+          if(soal){
+            this.soal = soal;
             console.log(this.soal);
           }else{
             this.soal = user.soal;

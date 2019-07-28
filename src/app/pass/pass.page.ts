@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { MenuController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pass',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PassPage implements OnInit {
 
-  constructor() { }
+  public detail: any;
+
+  constructor(
+    private store: Storage,
+    private menu: MenuController,
+    private nav: NavController,
+  ) { 
+    this.menu.enable(true);
+  }
 
   ngOnInit() {
+    this.store.get('user').then(user => {
+      if(user == null){
+        this.nav.navigateRoot('/login');
+      }else{
+        this.store.get('user').then((user) => {
+          this.detail = user.detail;
+        });
+      }
+    });
   }
 
 }

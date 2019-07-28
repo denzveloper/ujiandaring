@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-<ion-slides #slides (ionSlideWillChange)="doCheck()">
+<ion-slides #slides>
 <ion-slide *ngFor="let sl of soal; let iSoal = index" >
-  <ion-card>
+  <ion-card class="welcome-card">
   <ion-card-header>
     <ion-card-subtitle>{{sl.quest}}</ion-card-subtitle>
   </ion-card-header>
