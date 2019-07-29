@@ -54,7 +54,7 @@ export class SoalPage implements OnInit {
 //     ]
 //   },
 // ];
-  public soal = {};
+  public soal : any;
   public disableBackBtn: boolean;
   public disableNextBtn: boolean;
   public index: any;

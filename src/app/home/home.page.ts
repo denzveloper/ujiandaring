@@ -10,6 +10,7 @@ import { NavController, MenuController } from '@ionic/angular';
 export class HomePage implements OnInit {
 
   public detail: any;
+  public readysoal: any = false;
 
   constructor(
     private store: Storage,
@@ -26,6 +27,7 @@ export class HomePage implements OnInit {
       }else{
         this.store.get('user').then((user) => {
           this.detail = user.detail;
+          this.readysoal = user.soal;
         });
       }
     });
