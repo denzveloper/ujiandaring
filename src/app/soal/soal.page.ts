@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { IonSlides, NavController, AlertController, MenuController } from '@ionic/angular';
+import { IonSlides, NavController, AlertController, MenuController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-soal',
@@ -55,8 +55,9 @@ export class SoalPage implements OnInit {
 //   },
 // ];
   public soal : any;
-  public disableBackBtn: boolean;
-  public disableNextBtn: boolean;
+  // public isSlide: boolean;
+  // public disableBackBtn: boolean;
+  // public disableNextBtn: boolean;
   public index: any;
 
   constructor(
@@ -64,6 +65,7 @@ export class SoalPage implements OnInit {
     private storage: Storage,
     private nav: NavController,
     private alert: AlertController,
+    private toast: ToastController
   ) {
     this.menu.enable(false);
   }
@@ -94,7 +96,11 @@ export class SoalPage implements OnInit {
     this.storage.get('soal').then(soal => {
       console.log(soal);
     });
-    if(this.slides.isEnd()){
+    this.slides.isEnd().then(data => {
+      if(data){
+        this.finish();;
+      } 
+    });
       this.slides.lockSwipeToNext(false);
       this.slides.slideNext();
       this.slides.getActiveIndex().then((val) => {
@@ -102,7 +108,6 @@ export class SoalPage implements OnInit {
         this.index = val+1;
       });
       this.slides.lockSwipeToNext(true);
-    }
   }
 
   back(){
@@ -110,7 +115,11 @@ export class SoalPage implements OnInit {
     this.storage.get('soal').then(soal => {
       console.log(soal);
     })
-    if(this.slides.isBeginning()){
+    this.slides.isBeginning().then(data => {
+      if(data){
+        this.toastmsg("Ini adalah soal pertama");
+      } 
+    });
       this.slides.lockSwipeToPrev(false);
       this.slides.slidePrev();
       this.slides.getActiveIndex().then((val) => {
@@ -118,7 +127,6 @@ export class SoalPage implements OnInit {
         this.index = val+1;
       });
       this.slides.lockSwipeToPrev(true);
-    }
   }
 
   finish(){
@@ -126,8 +134,23 @@ export class SoalPage implements OnInit {
       console.log(res);
       if(res.data){
         this.nav.navigateRoot('/hasil');
+      }else{
+        this.toastmsg("Silahkan lanjutkan ujiannya 😊");
       }
     });
+  }
+
+  async toastmsg(msg) {
+    const toast = await this.toast.create({
+      message: msg,
+      duration: 2000,
+      mode: "md",
+      closeButtonText: "X",
+      showCloseButton: true,
+      color: "dark",
+      translucent: true,
+    });
+    toast.present();
   }
 
   async presentAlert() {
