@@ -1,6 +1,7 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { IonSlides, NavController, AlertController, MenuController, ToastController } from '@ionic/angular';
+import { IonSlides, NavController, AlertController, MenuController, ToastController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-soal',
@@ -59,24 +60,29 @@ export class SoalPage implements OnInit {
   // public disableBackBtn: boolean;
   // public disableNextBtn: boolean;
   public index: any;
+  public sendSoal: any;
+  isLoading = false;
+  data: any;
 
   constructor(
     private menu: MenuController,
-    private storage: Storage,
+    private store: Storage,
     private nav: NavController,
     private alert: AlertController,
-    private toast: ToastController
+    private toast: ToastController,
+    private loading: LoadingController,
+    private auth: AuthService
   ) {
     this.menu.enable(false);
   }
 
   ngOnInit() {
     this.index = 1;
-    this.storage.get('user').then(user => {
+    this.store.get('user').then(user => {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-        this.storage.get('soal').then(soal => {
+        this.store.get('soal').then(soal => {
           if(soal){
             this.soal = soal;
             console.log(this.soal);
@@ -92,8 +98,8 @@ export class SoalPage implements OnInit {
   } 
 
   next(){
-    this.storage.set('soal', this.soal);
-    this.storage.get('soal').then(soal => {
+    this.store.set('soal', this.soal);
+    this.store.get('soal').then(soal => {
       console.log(soal);
     });
     this.slides.isEnd().then(data => {
@@ -111,8 +117,8 @@ export class SoalPage implements OnInit {
   }
 
   back(){
-    this.storage.set('soal', this.soal);
-    this.storage.get('soal').then(soal => {
+    this.store.set('soal', this.soal);
+    this.store.get('soal').then(soal => {
       console.log(soal);
     })
     this.slides.isBeginning().then(data => {
@@ -133,7 +139,37 @@ export class SoalPage implements OnInit {
     this.presentAlert().then((res) => {
       console.log(res);
       if(res.data){
-        this.nav.navigateRoot('/hasil');
+        this.presentLoading();
+
+        this.store.get('soal').then(data =>{
+          this.sendSoal = data;
+        });
+
+        // koneksi ke server untuk kirim jawaban
+        this.auth.doupload(this.sendSoal).subscribe(data => {
+          this.data = data;
+          
+          if(this.data.meta.status_code == 200){
+            this.presentLoadingDiss();
+            this.store.set('hasil', this.data.data);
+            this.nav.navigateRoot('/hasil');
+          }else{
+            this.presentLoadingDiss();
+            this.Alert({
+              header: "Error",
+              message: this.data.meta.message
+            });
+          }
+          
+        }, error => {
+          this.presentLoadingDiss();
+          this.Alert({
+            header: "Error",
+            message: "Tidak dapat koneksi ke server!"
+          });
+          console.log(error);
+        }
+        );
       }else{
         this.toastmsg("Silahkan lanjutkan ujiannya 😊");
       }
@@ -187,11 +223,42 @@ export class SoalPage implements OnInit {
         this.soal[soal].jawaban[x].selected = false;
       }
     }
-    this.storage.set('soal', this.soal);
+    this.store.set('soal', this.soal);
     console.log(this.soal);
   }
 
   multiChoice(){
-    this.storage.set('soal', this.soal);
+    this.store.set('soal', this.soal);
+  }
+
+  async presentLoading() {
+    this.isLoading = true;
+    return await this.loading.create({
+      translucent: true,
+      keyboardClose: false,
+      spinner: 'crescent',
+      message: "Loading"
+    }).then(a => {
+      a.present().then(() => {
+        console.log('presented');
+        if (!this.isLoading) {
+          a.dismiss().then(() => console.log('abort presenting'));
+        }
+      });
+    });
+  }
+  async presentLoadingDiss() {
+    this.isLoading = false;
+    return await this.loading.dismiss().then(() => console.log('dismissed'));
+  }
+
+  async Alert(msg) {
+    const alert = await this.alert.create({
+      header: msg.header,
+      message: msg.message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

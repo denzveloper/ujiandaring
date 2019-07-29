@@ -11,14 +11,16 @@
 <ion-slides #slides>
 <ion-slide *ngFor="let sl of soal; let iSoal = index" >
   <ion-card class="welcome-card">
-  <ion-card-header>
+  <ion-card-header color="primary">
     <ion-card-subtitle>{{sl.quest}}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
+
       <ion-item *ngIf="sl.type == 1">
         <ion-textarea [(ngModel)]="sl.jawaban">
         </ion-textarea>
       </ion-item>
+
       <ion-list *ngIf="sl.type == 2">
         <ion-radio-group name="auto">
           <ion-item *ngFor="let jwb of sl.jawaban; let iJwb = index" >
