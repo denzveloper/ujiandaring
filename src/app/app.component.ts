@@ -47,9 +47,6 @@ export class AppComponent {
       this.statusBar.backgroundColorByHexString('#ffffff');
       this.splashScreen.hide();
     });
-    this.store.get('user').then((user) => {
-      this.detail = user.detail;
-    });
   }
 
   logout(){

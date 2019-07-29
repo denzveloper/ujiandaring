@@ -14,6 +14,7 @@ export class AuthService {
     //Harap ganti address
     // return this.http.post("http://1603046.domainon.top/api.php", form);
     return this.http.post("http://localhost/htdocs/api/api.php", form);
+    // return this.http.post("http://dummyservers.000webhostapp.com/api.php", form);
   }
 
   doupload(form){
