@@ -10,7 +10,9 @@
 <ion-content>
   <div padding>
   <ion-avatar class="avatars">
-    <img src="{{detail?.photo}}">
+      <img  src="./assets/icon/default.png"  (load)="loaded = false" [hidden]="loaded">
+      <img  [src]="detail?.photo"  (load)="loaded = true" *ngIf="detail?.photo" >
+    <!-- <img src="{{detail?.photo}}"> -->
   </ion-avatar>
   <ion-card-subtitle>{{(detail?.nama.length>24)? (detail?.nama | slice:0:24)+'..':(detail?.nama)}}</ion-card-subtitle>
   <ion-card-subtitle>{{detail?.nim}}</ion-card-subtitle>
@@ -21,7 +23,18 @@
       <ion-card-subtitle>Ganti Kata Sandi</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      Awesome content
+      <ion-item>
+        <ion-label position="stacked">Sandi Lama</ion-label>
+        <ion-input type="password" [(ngModel)]="form.pasb"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Sandi Baru</ion-label>
+        <ion-input type="password" [(ngModel)]="form.pasn"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Konfirmasi</ion-label>
+        <ion-input type="password" [(ngModel)]="form.pasc"></ion-input>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

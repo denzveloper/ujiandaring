@@ -10,6 +10,12 @@ import { MenuController, NavController } from '@ionic/angular';
 export class PassPage implements OnInit {
 
   public detail: any;
+  public loaded;
+  form = {
+    pasb: '',
+    pasn: '',
+    pasc: '',
+  }
 
   constructor(
     private store: Storage,
