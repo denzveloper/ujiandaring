@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Hasil</ion-title>
+      <ion-title>Hasil Ujian</ion-title>
+    <ion-button slot="end" size="small" fill="clear" color="medium" (click)="gohome()"><ion-icon name="ios-close"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div padding id="profile-info">
+      <ion-card-title>NILAI</ion-card-title>
+      <br>
+    <ion-avatar class="avatars">
+      <ion-card-title id="profile-image">
+          <ion-row justify-content-center align-items-center style="height: 100%">
+              {{hasil?.nilai}}
+            </ion-row>
+      </ion-card-title>
+    </ion-avatar>
+    <br>
+    <ion-card-subtitle>{{hasil?.nama}}</ion-card-subtitle>
+    <ion-button expand="full" color="danger" (click)="gohome()">Tutup</ion-button>
+  </div>
 </ion-content>

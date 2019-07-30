@@ -23,7 +23,8 @@
         <p>Waktu: {{detail?.waktu}} Menit</p>
         <p>Dosen: {{(detail?.dosen.length>24)? (detail?.doesn | slice:0:24)+'..':(detail?.dosen)}}</p>
         <br>
-        <ion-button expand="full" color="primary" (click)="beginexam()">Mulai Ujian!</ion-button>
+        <ion-button expand="full" color="primary" *ngIf="readysoal"  (click)="beginexam()">Mulai Ujian!</ion-button>
+        <ion-button expand="full" color="primary" *ngIf="hasil && !readysoal"  (click)="showhasil()">Hasil Ujian Terakhir</ion-button>
       </ion-card-content>
     </ion-card>
 

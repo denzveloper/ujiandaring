@@ -11,6 +11,7 @@ export class HomePage implements OnInit {
 
   public detail: any;
   public readysoal: any = false;
+  public hasil: boolean = false;
 
   constructor(
     private store: Storage,
@@ -21,13 +22,18 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(){
-    this.store.get('user').then(user => {
+    this.store.get('user').then((user) => {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-        this.store.get('user').then((user) => {
           this.detail = user.detail;
           this.readysoal = user.soal;
+        this.store.get('hasil').then((user) => {
+          if(user == null){
+            this.hasil = false;
+          }else{
+            this.hasil = true;
+          }
         });
       }
     });
@@ -36,6 +42,10 @@ export class HomePage implements OnInit {
   beginexam(){
     // if(th)
     this.nav.navigateRoot('/soal');
+  }
+
+  showhasil(){
+    this.nav.navigateRoot('/hasil');
   }
   
 }

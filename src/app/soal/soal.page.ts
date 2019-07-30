@@ -55,7 +55,8 @@ export class SoalPage implements OnInit {
 //     ]
 //   },
 // ];
-  public soal : any;
+  public soal: any;
+  public require: any;
   // public isSlide: boolean;
   // public disableBackBtn: boolean;
   // public disableNextBtn: boolean;
@@ -121,7 +122,7 @@ export class SoalPage implements OnInit {
     this.store.get('soal').then(soal => {
       console.log(soal);
     })
-    this.slides.isBeginning().then(data => {
+    this.slides.isBeginning().then((data) => {
       if(data){
         this.toastmsg("Ini adalah soal pertama");
       } 
@@ -136,20 +137,30 @@ export class SoalPage implements OnInit {
   }
 
   finish(){
-    this.presentAlert().then((res) => {
+    this.presentAlert().then(async (res) => {
       console.log(res);
       if(res.data){
         this.presentLoading();
 
-        this.store.get('soal').then(data =>{
-          this.sendSoal = data;
+        await this.store.get('user').then((data) =>{
+          this.require = data.detail;
+          console.log(data.detail)
+
+        });
+
+        await this.store.get('soal').then((data) => {
+          this.sendSoal = {
+            data: data,
+            user: this.require
+          };
+          console.log("Send=",this.sendSoal)
         });
 
         // koneksi ke server untuk kirim jawaban
         this.auth.doupload(this.sendSoal).subscribe(data => {
           this.data = data;
           
-          if(this.data.meta.status_code == 200){
+          if(this.data.meta.status == 200){
             this.presentLoadingDiss();
             this.store.set('hasil', this.data.data);
             this.nav.navigateRoot('/hasil');

@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./hasil.page.scss'],
 })
 export class HasilPage implements OnInit {
+  public hasil: any;
 
   constructor(
     private menu: MenuController,
@@ -18,7 +19,29 @@ export class HasilPage implements OnInit {
   }
 
   ngOnInit() {
-    this.store.remove('user');
+    this.store.get('user').then(user => {
+      this.store.get('hasil').then(data => {
+      if(user == null || data == null){
+        this.nav.navigateRoot('/login');
+      }else{
+        this.store.get('hasil').then((data) => {
+          this.hasil = data;
+        });
+        this.store.remove('soal');
+        this.store.get('user').then((data) => {
+          var temp = {
+            detail: data.detail,
+            soal: null
+          };
+          this.store.set('user', temp);
+        });
+      }
+    });
+    });
+  }
+
+  gohome(){
+    this.nav.navigateRoot('/home');
   }
 
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { interval } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
 @Injectable({
@@ -17,18 +16,28 @@ export class AuthService {
   // body.append('nim', form.nim);
   // body.append('password', form.password);
 
+  /*
+    Usage:
+    return this.http.post("-address-", form).pipe(timeout(9000));
+  */
+
   dologin(form){
     //Harap ganti address
-    // return this.http.post("http://localhost/htdocs/api/api.php", form).pipe(timeout(1000));;
-    // return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form);
+    return this.http.post("http://localhost/htdocs/api/api.php", form).pipe(timeout(10000));;
     // return this.http.post("http://localhost/htdocs/api/apiup.php", form);
-    return this.http.post("http://srdoni.1603046.domainon.top/API/api.php", form).pipe(timeout(9000));
+    // return this.http.post("http://srdoni.1603046.domainon.top/API/api.php", form).pipe(timeout(10000));
   }
 
   doupload(form){
     //Harap ganti address
-    // return this.http.post("http://stahrul.1603046.domainon.top/api.php", form);
-    return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form);
+    return this.http.post("http://localhost/htdocs/api/aps.php", form);
+    // return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form).pipe(timeout(10000));
+  }
+
+  doupasw(form){
+    //Harap ganti address
+    return this.http.post("http://localhost/htdocs/api/apiup.php", form);
+    // return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form).pipe(timeout(10000));
   }
 
 }

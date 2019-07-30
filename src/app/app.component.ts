@@ -15,7 +15,7 @@ export class AppComponent {
   public detail: any;
   public appPages = [
     {
-      title: 'Ujian',
+      title: 'Home',
       url: '/home',
       icon: 'ios-paper'
     },
