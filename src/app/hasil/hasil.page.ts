@@ -1,4 +1,6 @@
+import { MenuController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-hasil',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HasilPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private menu: MenuController,
+    private store: Storage,
+    private nav: NavController,
+  ) {
+    this.menu.enable(false);
+  }
 
   ngOnInit() {
+    this.store.remove('user');
   }
 
 }
