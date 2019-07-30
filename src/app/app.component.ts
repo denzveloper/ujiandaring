@@ -20,12 +20,12 @@ export class AppComponent {
       icon: 'ios-paper'
     },
     {
-      title: 'Akun',
+      title: 'Profil',
       url: '/pass',
       icon: 'ios-contact'
     },
     {
-      title: 'About',
+      title: 'Tentang',
       url: '/list',
       icon: 'ios-information-circle'
     }

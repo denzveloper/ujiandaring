@@ -10,7 +10,7 @@ import { MenuController, NavController } from '@ionic/angular';
 export class PassPage implements OnInit {
 
   public detail: any;
-  public loaded;
+  public loaded: boolean = false;
   form = {
     pasb: '',
     pasn: '',

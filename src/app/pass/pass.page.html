@@ -8,33 +8,17 @@
 </ion-header>
 
 <ion-content>
-  <div padding>
+  <div padding id="profile-info">
   <ion-avatar class="avatars">
-      <img  src="./assets/icon/default.png"  (load)="loaded = false" [hidden]="loaded">
-      <img  [src]="detail?.photo"  (load)="loaded = true" *ngIf="detail?.photo" >
+      <img id="profile-image" src="./assets/icon/ujidaring.png" (load)="loaded = false" [hidden]="loaded">
+      <img id="profile-image" [src]="detail.photo" (load)="loaded = true" [hidden]="!loaded" *ngIf="detail?.photo" >
     <!-- <img src="{{detail?.photo}}"> -->
   </ion-avatar>
+  <br>
   <ion-card-subtitle>{{(detail?.nama.length>24)? (detail?.nama | slice:0:24)+'..':(detail?.nama)}}</ion-card-subtitle>
   <ion-card-subtitle>{{detail?.nim}}</ion-card-subtitle>
   <ion-card-subtitle>{{detail?.kelas}}</ion-card-subtitle>
   </div>
-  <ion-card>
-    <ion-card-header color="primary">
-      <ion-card-subtitle>Ganti Kata Sandi</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="stacked">Sandi Lama</ion-label>
-        <ion-input type="password" [(ngModel)]="form.pasb"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Sandi Baru</ion-label>
-        <ion-input type="password" [(ngModel)]="form.pasn"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Konfirmasi</ion-label>
-        <ion-input type="password" [(ngModel)]="form.pasc"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+    <ion-button expand="full" color="danger">Ganti Kata Sandi</ion-button>
+  
 </ion-content>

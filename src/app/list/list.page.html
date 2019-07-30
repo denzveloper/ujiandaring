@@ -10,18 +10,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
+  <ion-card>
+    <ion-card-content>
+        <ion-avatar class="avatars">
+            <img src="./assets/icon/ujidaring.svg">
+        </ion-avatar>
+        <ion-card-title>Ujian Daring</ion-card-title>
+        <ion-card-subtitle>Berbasis Mobile Android</ion-card-subtitle>
+        <ion-card-subtitle>Versi 1.0</ion-card-subtitle>
+        <p>
+          Ujian Daring berbasis aplikasi mobile ini dibuat menggunakan Ionic & Angular dan digunakan untuk melakukan
+          ujian mandiri dan penilaian otomatis oleh komputer sehingga dapat secara instan mendapatkan nilai sesuai dengan
+          kemampuan dari peserta ujian. 
+        </p>
+        <p>
+          Aplikasi ini didukung oleh Politeknik Negeri Indramayu
+        </p>
+    </ion-card-content>
+    <ion-row class="cardfooter">
+      <ion-col>
+            <p>©2019 - DzEN/DzEN</p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

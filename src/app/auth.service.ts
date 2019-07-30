@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+// import { interval } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +12,23 @@ export class AuthService {
     private http: HttpClient
   ) { }
   
+  // Make to native PHP POST like
+  // let body = new FormData();
+  // body.append('nim', form.nim);
+  // body.append('password', form.password);
+
   dologin(form){
     //Harap ganti address
-    // return this.http.post("http://1603046.domainon.top/api.php", form);
-    return this.http.post("http://localhost/htdocs/api/api.php", form);
-    // return this.http.post("http://dummyservers.000webhostapp.com/api.php", form);
+    // return this.http.post("http://localhost/htdocs/api/api.php", form).pipe(timeout(1000));;
+    // return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form);
+    // return this.http.post("http://localhost/htdocs/api/apiup.php", form);
+    return this.http.post("http://srdoni.1603046.domainon.top/API/api.php", form).pipe(timeout(9000));
   }
 
   doupload(form){
     //Harap ganti address
-    return this.http.post("http://stahrul.1603046.domainon.top/api.php", form);
+    // return this.http.post("http://stahrul.1603046.domainon.top/api.php", form);
+    return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form);
   }
 
 }

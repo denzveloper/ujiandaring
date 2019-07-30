@@ -80,7 +80,7 @@ export class LoginPage implements OnInit {
       this.auth.dologin(this.form).subscribe(data => {
         this.data = data;
         
-        if(this.data.meta.status_code == 200){
+        if(this.data.meta.status == 200){
           this.presentLoadingDiss();
           this.store.set('user', this.data.data);
           this.nav.navigateRoot('/home');
