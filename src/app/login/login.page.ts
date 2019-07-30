@@ -77,7 +77,7 @@ export class LoginPage implements OnInit {
       })
     }else{
       this.presentLoading();
-      this.auth.dologin(this.form).subscribe(data => {
+      this.auth.dologin(this.form).subscribe((data)=> {
         this.data = data;
         
         if(this.data.meta.status == 200){
