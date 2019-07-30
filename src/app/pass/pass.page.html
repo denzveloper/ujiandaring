@@ -10,7 +10,7 @@
 <ion-content>
   <div padding id="profile-info">
   <ion-avatar class="avatars">
-      <img id="profile-image" src="./assets/icon/ujidaring.png" (load)="loaded = false" [hidden]="loaded">
+      <img id="profile-image" src="./assets/icon/ujidaring.svg" (load)="loaded = false" [hidden]="loaded">
       <img id="profile-image" [src]="detail.photo" (load)="loaded = true" [hidden]="!loaded" *ngIf="detail?.photo" >
     <!-- <img src="{{detail?.photo}}"> -->
   </ion-avatar>
