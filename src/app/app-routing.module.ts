@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'soal', loadChildren: './soal/soal.module#SoalPageModule' },
   { path: 'hasil', loadChildren: './hasil/hasil.module#HasilPageModule' },
   { path: 'pass', loadChildren: './pass/pass.module#PassPageModule' },
-  { path: 'test-soal', loadChildren: './test-soal/test-soal.module#TestSoalPageModule' }
+  { path: 'test-soal', loadChildren: './test-soal/test-soal.module#TestSoalPageModule' },
+  { path: 'profil', loadChildren: './profil/profil.module#ProfilPageModule' }
 ];
 
 @NgModule({

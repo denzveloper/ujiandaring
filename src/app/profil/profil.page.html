@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div padding id="profile-info">
+  <ion-avatar class="avatars">
+      <img id="profile-image" src="./assets/icon/ujidaring.svg" (load)="loaded = false" [hidden]="loaded">
+      <img id="profile-image" [src]="detail.photo" (load)="loaded = true" [hidden]="!loaded" *ngIf="detail?.photo" >
+    <!-- <img src="{{detail?.photo}}"> -->
+  </ion-avatar>
+  <br>
+  <ion-card-subtitle>{{(detail?.nama.length>24)? (detail?.nama | slice:0:24)+'..':(detail?.nama)}}</ion-card-subtitle>
+  <ion-card-subtitle>{{detail?.nim}}</ion-card-subtitle>
+  <ion-card-subtitle>{{detail?.kelas}}</ion-card-subtitle>
+  </div>
+  <ion-button expand="full" color="danger" (click)="pass()">Ganti Kata Sandi</ion-button>
+  
+</ion-content>

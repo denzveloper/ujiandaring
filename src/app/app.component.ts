@@ -21,7 +21,7 @@ export class AppComponent {
     },
     {
       title: 'Profil',
-      url: '/pass',
+      url: '/profil',
       icon: 'ios-contact'
     },
     {
