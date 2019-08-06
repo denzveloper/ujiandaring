@@ -25,13 +25,13 @@ export class AuthService {
     //Harap ganti address
     // return this.http.post("http://localhost/htdocs/api/api.php", form).pipe(timeout(10000));;
     // return this.http.post("http://localhost/htdocs/api/apiup.php", form);
-    return this.http.post("http://srdoni.1603046.domainon.top/API/api.php", form).pipe(timeout(10000));
+    return this.http.post("http://srdoni.1603046.domainon.top/API/api.php", form).pipe(timeout(30000));
   }
 
   doupload(form){
     //Harap ganti address
     // return this.http.post("http://localhost/htdocs/api/aps.php", form);
-    return this.http.post("http://srdoni.1603046.domainon.top/API/aps.php", form).pipe(timeout(10000));
+    return this.http.post("http://srdoni.1603046.domainon.top/API/aps.php", form).pipe(timeout(30000));
   }
 
   doupasw(form){

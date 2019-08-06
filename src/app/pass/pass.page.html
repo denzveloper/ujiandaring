@@ -1,24 +1,30 @@
 <ion-header>
   <ion-toolbar>
+    <!-- <ion-buttons slot="start" (click)="back()">
+        <ion-icon color="medium" size="large" name="ios-arrow-back"></ion-icon>
+    </ion-buttons> -->
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="medium" defaultHref="/profil"></ion-back-button>
     </ion-buttons>
-    <ion-title>Profil</ion-title>
+    <ion-title>Kata Sandi</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div padding id="profile-info">
-  <ion-avatar class="avatars">
-      <img id="profile-image" src="./assets/icon/ujidaring.svg" (load)="loaded = false" [hidden]="loaded">
-      <img id="profile-image" [src]="detail.photo" (load)="loaded = true" [hidden]="!loaded" *ngIf="detail?.photo" >
-    <!-- <img src="{{detail?.photo}}"> -->
-  </ion-avatar>
   <br>
-  <ion-card-subtitle>{{(detail?.nama.length>24)? (detail?.nama | slice:0:24)+'..':(detail?.nama)}}</ion-card-subtitle>
-  <ion-card-subtitle>{{detail?.nim}}</ion-card-subtitle>
-  <ion-card-subtitle>{{detail?.kelas}}</ion-card-subtitle>
-  </div>
-  <ion-button expand="full" color="danger">Ganti Kata Sandi</ion-button>
+  <ion-item>
+    <ion-label position="stacked">Pasword Lama</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Pasword Baru</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Konfirmasi</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <br>
+  <ion-button expand="full" color="danger" (click)="gantimodal()">Ubah Kata Sandi</ion-button>
   
 </ion-content>
