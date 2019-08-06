@@ -14,15 +14,15 @@
   <br>
   <ion-item>
     <ion-label position="stacked">Pasword Lama</ion-label>
-    <ion-input></ion-input>
+    <ion-input type="password" name="pass" [(ngModel)]="form.pasb"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Pasword Baru</ion-label>
-    <ion-input></ion-input>
+    <ion-input type="password" name="pass" [(ngModel)]="form.pasn"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Konfirmasi</ion-label>
-    <ion-input></ion-input>
+    <ion-input type="password" name="pass" [(ngModel)]="form.pasc"></ion-input>
   </ion-item>
   <br>
   <ion-button expand="full" color="danger" (click)="gantimodal()">Ubah Kata Sandi</ion-button>
