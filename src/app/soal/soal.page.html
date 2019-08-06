@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-button slot="start" size="small" fill="clear" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
     <ion-title>No {{index}}</ion-title>
+    <ion-button slot="end" size="small" fill="clear" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
     <ion-button slot="end" size="small" fill="clear" color="success" (click)="finish()"><ion-icon name="ios-checkmark"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
@@ -8,13 +10,13 @@
 <ion-content>
 <ion-slides #slides>
 <ion-slide *ngFor="let sl of soal; let iSoal = index" >
-  <ion-card fullscreen="true">
+  <ion-card class="welcome-card">
   <ion-card-header color="primary">
     <!-- <img src="{{sl.gambar}}" ngIf="{{sl.gambar}}"> -->
     <ion-card-subtitle>{{sl.quest}}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-    <ion-label><i>Jawaban:</i></ion-label>
+
       <ion-item *ngIf="sl.type == 1">
         <ion-textarea [(ngModel)]="sl.jawaban">
         </ion-textarea>
@@ -41,9 +43,3 @@
 </ion-slide>
 </ion-slides>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-button slot="start" size="small" fill="clear" (click)="back()"><ion-icon name="ios-arrow-back"></ion-icon></ion-button>
-    <ion-button slot="end" size="small" fill="clear" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></ion-button>
-  </ion-toolbar>
-</ion-footer>

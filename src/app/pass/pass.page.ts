@@ -8,6 +8,9 @@ import { MenuController, NavController } from '@ionic/angular';
   styleUrls: ['./pass.page.scss'],
 })
 export class PassPage implements OnInit {
+
+  public detail: any;
+  public loaded: boolean = false;
   form = {
     pasb: '',
     pasn: '',
@@ -23,9 +26,15 @@ export class PassPage implements OnInit {
   }
 
   ngOnInit() {
+    this.store.get('user').then(user => {
+      if(user == null){
+        this.nav.navigateRoot('/login');
+      }else{
+        this.store.get('user').then((user) => {
+          this.detail = user.detail;
+        });
+      }
+    });
   }
 
-  back(){
-    this.nav.navigateRoot('/profil');
-  }
 }
