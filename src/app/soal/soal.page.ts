@@ -92,29 +92,76 @@ export class SoalPage implements OnInit {
             console.log(this.soal);
             await this.store.get('soal').then(times => {
             this.duration = times * 60000;
-            interval(this.duration).subscribe((val) => {
-              console.log('called');
-            });
           });
           }else{
             this.soal = user.soal;
             this.duration = user.detail.waktu * 60000;
-            interval(this.duration).subscribe((val) => {
-              console.log('called');
-            });
             console.log(this.soal);
           }
         });
         this.time = this.duration/1000;
-        interval(1000).subscribe((val) => {
+        // this.time = 10;
+        let counting = interval(1000).subscribe((val) => {
           this.time = this.time - 1;
           this.store.set('times', this.time);
+          var stat = val;
+            if(this.time == 0) {
+              this.timeover();
+              counting.unsubscribe();
+            }
         });
       }
     })
     this.slides.lockSwipeToNext(true);
     this.slides.lockSwipeToPrev(true);
-  } 
+  }
+
+  async timeover(){
+    this.store.set('soal', this.soal);
+    await this.toastmsg("Waktu Sudah Habis!").then(async (data) => {
+      this.presentLoading();
+        await this.store.get('user').then((data) =>{
+          this.require = data.detail;
+          console.log(data.detail)
+
+        });
+
+        await this.store.get('soal').then((data) => {
+          this.sendSoal = {
+            data: data,
+            user: this.require
+          };
+          console.log("Send=",this.sendSoal)
+        });
+
+        // koneksi ke server untuk kirim jawaban
+        this.auth.doupload(this.sendSoal).subscribe(data => {
+          this.data = data;
+          
+          if(this.data.meta.status == 200){
+            this.presentLoadingDiss();
+            this.store.set('hasil', this.data.data);
+            this.nav.navigateRoot('/hasil');
+          }else{
+            this.presentLoadingDiss();
+            this.Alert({
+              header: "Error",
+              message: this.data.meta.message
+            });
+          }
+          
+        }, error => {
+          this.presentLoadingDiss();
+          this.Alert({
+            header: "Error",
+            message: "Tidak dapat koneksi ke server!"
+          });
+          console.log(error);
+        }
+        );
+    });
+
+  }
 
   next(){
     this.store.set('soal', this.soal);
