@@ -2,6 +2,7 @@ import { AuthService } from './../auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { IonSlides, NavController, AlertController, MenuController, ToastController, LoadingController } from '@ionic/angular';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-soal',
@@ -57,6 +58,8 @@ export class SoalPage implements OnInit {
 // ];
   public soal: any;
   public require: any;
+  public duration: number;
+  public time: any;
   // public isSlide: boolean;
   // public disableBackBtn: boolean;
   // public disableNextBtn: boolean;
@@ -72,25 +75,40 @@ export class SoalPage implements OnInit {
     private alert: AlertController,
     private toast: ToastController,
     private loading: LoadingController,
-    private auth: AuthService
+    private auth: AuthService,
   ) {
     this.menu.enable(false);
   }
 
   ngOnInit() {
     this.index = 1;
-    this.store.get('user').then(user => {
+    this.store.get('user').then(async user => {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-        this.store.get('soal').then(soal => {
+        await this.store.get('soal').then(async soal => {
           if(soal){
             this.soal = soal;
             console.log(this.soal);
+            await this.store.get('soal').then(times => {
+            this.duration = times * 60000;
+            interval(this.duration).subscribe((val) => {
+              console.log('called');
+            });
+          });
           }else{
             this.soal = user.soal;
+            this.duration = user.detail.waktu * 60000;
+            interval(this.duration).subscribe((val) => {
+              console.log('called');
+            });
             console.log(this.soal);
           }
+        });
+        this.time = this.duration/1000;
+        interval(1000).subscribe((val) => {
+          this.time = this.time - 1;
+          this.store.set('times', this.time);
         });
       }
     })
@@ -137,6 +155,7 @@ export class SoalPage implements OnInit {
   }
 
   finish(){
+    this.store.set('soal', this.soal);
     this.presentAlert().then(async (res) => {
       console.log(res);
       if(res.data){
