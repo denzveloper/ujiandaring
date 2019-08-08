@@ -17,7 +17,7 @@ export class ProfilPage implements OnInit {
     private store: Storage,
     private menu: MenuController,
     private nav: NavController,
-    private router: Router
+    private route: Router
   ) {
     this.menu.enable(true);
   }
@@ -36,7 +36,7 @@ export class ProfilPage implements OnInit {
 
   pass(){
     // if(th)
-    this.router.navigate(['/pass']);
+    this.route.navigate(['/pass']);
   }
 
 }

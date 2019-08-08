@@ -91,24 +91,24 @@ export class SoalPage implements OnInit {
             this.soal = soal;
             console.log(this.soal);
             await this.store.get('soal').then(times => {
-            this.duration = times * 60000;
+            this.duration = times;
           });
           }else{
             this.soal = user.soal;
-            this.duration = user.detail.waktu * 60000;
+            this.duration = user.detail.waktu * 60;
             console.log(this.soal);
           }
         });
-        this.time = this.duration/1000;
+        this.time = this.duration;
         // this.time = 10;
         let counting = interval(1000).subscribe((val) => {
           this.time = this.time - 1;
           this.store.set('times', this.time);
-          var stat = val;
-            if(this.time == 0) {
-              this.timeover();
-              counting.unsubscribe();
-            }
+          // var stat = val;
+          if(this.time == 0) {
+            this.timeover();
+            counting.unsubscribe();
+          }
         });
       }
     })
@@ -158,7 +158,7 @@ export class SoalPage implements OnInit {
           });
           console.log(error);
         }
-        );
+      );
     });
 
   }
@@ -287,8 +287,8 @@ export class SoalPage implements OnInit {
     });
     await alert.present();
     await alert.onDidDismiss().then((data) => {
-        choice = data
-    })
+      choice = data;
+    });
     return choice;
   }
 
