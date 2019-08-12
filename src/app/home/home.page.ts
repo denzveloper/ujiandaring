@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
         this.nav.navigateRoot('/login');
       }else{
           this.detail = user.detail;
-          this.readysoal = user.soal;
+          this.readysoal = user.data_soal;
         this.store.get('hasil').then((user) => {
           if(user == null){
             this.hasil = false;

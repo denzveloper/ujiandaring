@@ -26,21 +26,21 @@ export class AuthService {
 
   dologin(form){
     //Harap ganti address
-    // return this.http.post("http://localhost/htdocs/api/api.php", form).pipe(timeout(10000)); //localhost
-    return this.http.post("http://f7cc64f5.ngrok.io/htdocs/api/api.php", form).pipe(timeout(10000)); //server dynamic
+    return this.http.post("http://localhost/htdocs/api/api.php", form).pipe(timeout(10000)); //localhost
+    // return this.http.post("http://f7cc64f5.ngrok.io/htdocs/api/api.php", form).pipe(timeout(10000)); //server dynamic
     // return this.http.post("http://srdoni.1603046.domainon.top/API/api.php", form).pipe(timeout(30000)); //Server
   }
 
   doupload(form){
     //Harap ganti address
-    // return this.http.post("http://localhost/htdocs/api/aps.php", form).pipe(timeout(10000)); //Localhost
-    return this.http.post("http://f7cc64f5.ngrok.io/htdocs/api/aps.php", form).pipe(timeout(10000)); //server dynamic
+    return this.http.post("http://localhost/htdocs/api/aps.php", form).pipe(timeout(10000)); //Localhost
+    // return this.http.post("http://f7cc64f5.ngrok.io/htdocs/api/aps.php", form).pipe(timeout(10000)); //server dynamic
     // return this.http.post("http://srdoni.1603046.domainon.top/API/aps.php", form).pipe(timeout(30000)); //Server
   }
 
   doupasw(form){
     //Harap ganti address
-    return this.http.post("http://localhost/htdocs/api/apiup.php", form); //Localhost
+    return this.http.post("http://localhost/htdocs/api/app.php", form).pipe(timeout(10000)); //Localhost
     // return this.http.post("http://srdoni.1603046.domainon.top/API/apiup.php", form).pipe(timeout(10000)); //Server
   }
 

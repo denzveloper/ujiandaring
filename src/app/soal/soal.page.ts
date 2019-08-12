@@ -65,6 +65,7 @@ export class SoalPage implements OnInit {
   // public disableNextBtn: boolean;
   public index: any;
   public sendSoal: any;
+  public soalDetail: any;
   isLoading = false;
   data: any;
 
@@ -94,8 +95,8 @@ export class SoalPage implements OnInit {
             this.duration = times;
           });
           }else{
-            this.soal = user.soal;
-            this.duration = user.detail.waktu * 60;
+            this.soal = user.data_soal.soal;
+            this.duration = user.data_soal.waktu * 60;
             console.log(this.soal);
           }
         });
@@ -122,16 +123,25 @@ export class SoalPage implements OnInit {
       this.presentLoading();
         await this.store.get('user').then((data) =>{
           this.require = data.detail;
-          console.log(data.detail)
-
+          this.soalDetail = data.data_soal;
+          console.log(data.detail);
         });
 
         await this.store.get('soal').then((data) => {
           this.sendSoal = {
-            data: data,
-            user: this.require
+            // data: data,
+            user: this.require,
+            data: {
+              idsoal  : this.soalDetail.idsoal,
+              idmapel : this.soalDetail.idmapel,
+              mapel   : this.soalDetail.mapel,
+              dosen   : this.soalDetail.dosen,
+              waktu   : this.soalDetail.waktu,
+              tanggal : this.soalDetail.tanggal,
+              soal: data
+            }
           };
-          console.log("Send=",this.sendSoal)
+          console.log("Send =",this.sendSoal)
         });
 
         // koneksi ke server untuk kirim jawaban
@@ -210,16 +220,25 @@ export class SoalPage implements OnInit {
 
         await this.store.get('user').then((data) =>{
           this.require = data.detail;
-          console.log(data.detail)
-
+          this.soalDetail = data.data_soal;
+          console.log(data.detail);
         });
 
         await this.store.get('soal').then((data) => {
           this.sendSoal = {
-            data: data,
-            user: this.require
+            // data: data,
+            user: this.require,
+            data: {
+              idsoal  : this.soalDetail.idsoal,
+              idmapel : this.soalDetail.idmapel,
+              mapel   : this.soalDetail.mapel,
+              dosen   : this.soalDetail.dosen,
+              waktu   : this.soalDetail.waktu,
+              tanggal : this.soalDetail.tanggal,
+              soal: data
+            }
           };
-          console.log("Send=",this.sendSoal)
+          console.log("Send =",this.sendSoal)
         });
 
         // koneksi ke server untuk kirim jawaban

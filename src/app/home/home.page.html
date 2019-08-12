@@ -19,9 +19,11 @@
         <p>Nama: {{(detail?.nama.length>24)? (detail?.nama | slice:0:24)+'..':(detail?.nama)}}</p>
         <p>Nim: {{detail?.nim}}</p>
         <p>Kelas: {{detail?.kelas}}</p>
-        <p>Pelajaran: {{(detail?.mapel.length>24)? (detail?.mapel | slice:0:24)+'..':(detail?.mapel)}}</p>
-        <p>Waktu: {{detail?.waktu}} Menit</p>
-        <p>Dosen: {{(detail?.dosen.length>24)? (detail?.doesn | slice:0:24)+'..':(detail?.dosen)}}</p>
+        <!-- Data_soal -->
+        <p *ngIf="readysoal">Pelajaran: {{(readysoal?.mapel.length>24)? (readysoal?.mapel | slice:0:24)+'..':(readysoal?.mapel)}}</p>
+        <p *ngIf="readysoal">Waktu: {{readysoal?.waktu}} Menit</p>
+        <p *ngIf="readysoal">Dosen: {{(readysoal?.dosen.length>24)? (readysoal?.doesn | slice:0:24)+'..':(readysoal?.dosen)}}</p>
+        <ion-card-subtitle *ngIf="!readysoal" color="medium"><i>Soal Belum tersedia</i></ion-card-subtitle>
         <br>
         <ion-button expand="full" color="primary" *ngIf="readysoal"  (click)="beginexam()">Mulai Ujian!</ion-button>
         <ion-button expand="full" color="primary" *ngIf="hasil && !readysoal"  (click)="showhasil()">Hasil Ujian Terakhir</ion-button>

@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { MenuController, NavController, AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from './../auth.service';
+import { AppComponent } from './../app.component';
 
 @Component({
   selector: 'app-pass',
@@ -28,6 +29,7 @@ export class PassPage implements OnInit {
     private toast: ToastController,
     private auth: AuthService,
     private loading: LoadingController,
+    private comp: AppComponent,
   ) { 
     this.menu.enable(false);
   }
@@ -45,44 +47,75 @@ export class PassPage implements OnInit {
   }
 
   gantimodal(){
-    this.presentAlert().then((res) =>{
-      if(res.data){
-        this.auth.doupasw(this.form).subscribe(data => {
-          this.data = data;
-          if(this.data.meta.status == 200){
-            this.presentLoadingDiss();
-            this.store.set('hasil', this.data.data);
-            this.nav.navigateRoot('/hasil');
-          }else{
-            this.presentLoadingDiss();
-            this.Alert({
-              header: "Error",
-              message: this.data.meta.message
+    if(this.form.pasb == '' || this.form.pasn == '' || this.form.pasc == ''){
+      this.clearData();
+      this.Alert({
+        header: "Error",
+        message: "Form harus diisi!"
+      });
+    }else if(this.form.pasn != this.form.pasc){
+      this.clearData();
+      this.Alert({
+        header: "Error",
+        message: "Password baru dengan konfirmasi berbeda"
+      });
+    }else if(this.form.pasb == this.form.pasn){
+      this.clearData();
+      this.Alert({
+        header: "Error",
+        message: "Password tidak berubah"
+      });
+      this.route.navigate(['/profil']);
+    }else{
+      this.presentLoading();
+      this.presentAlert().then(async (res) =>{
+        if(res.data){
+          await this.store.get('user').then((user)=> {
+            var sending = {
+              nim: user.detail.nim,
+              // nama: user.detail.nama,
+              // kelas: user.detail.kelas,
+              password: this.form
+            }
+            this.auth.doupasw(sending).subscribe(data => {
+              this.data = data;
+              if(this.data.meta.status == 200){
+                this.presentLoadingDiss();
+                this.toastmsg("Password baru Disimpan, Login Kembali.");
+                // this.store.set('hasil', this.data.data);
+                // this.nav.navigateRoot('/hasil');
+                this.comp.logout();
+              }else{
+                this.presentLoadingDiss();
+                this.Alert({
+                  header: "Error",
+                  message: this.data.meta.message
+                });
+              }
+            }, error => {
+              this.presentLoadingDiss();
+              this.Alert({
+                header: "Error",
+                message: "Tidak dapat koneksi ke server!"
+              });
+              console.log(error);
             });
-          }
-        }, error => {
-          this.presentLoadingDiss();
-          this.Alert({
-            header: "Error",
-            message: "Tidak dapat koneksi ke server!"
           });
-          console.log(error);
-        });
-      }else{
-        this.form.pasb = '';
-        this.form.pasn = '';
-        this.form.pasc = '';
-        this.toastmsg("Kambali ke pengaturan profil");
-        this.route.navigate(['/profil']);
-      }
-    });
+        }else{
+          this.clearData();
+          this.toastmsg("Kembali ke pengaturan profil");
+          this.route.navigate(['/profil']);
+        }
+      });
+    }
   }
 
   async presentAlert() {
     let choice
     const alert = await this.alert.create({
         header: "Konfirmasi",
-        message: "Yakin Ganti?",
+        subHeader: "Yakin Ubah Sandi?",
+        message: "<i><sup color='medium'>Setelah tekan \"Ya\" Anda akan dikeluarkan dari sistem</sup></i>",
         buttons: [{
             text: 'Ya',
             handler: () => {
@@ -147,5 +180,11 @@ export class PassPage implements OnInit {
   async presentLoadingDiss() {
     this.isLoading = false;
     return await this.loading.dismiss().then(() => console.log('dismissed'));
+  }
+
+  clearData(){
+    this.form.pasb = '';
+    this.form.pasn = '';
+    this.form.pasc = '';
   }
 }

@@ -71,10 +71,12 @@ export class LoginPage implements OnInit {
 
   login(){
     if(this.form.nim == "" || this.form.password == ""){
+      this.form.nim = "";
+      this.form.password = "";      
       this.presentAlert({
         header: "Error",
         message: "Form harus diisi!"
-      })
+      });
     }else{
       this.presentLoading();
       this.auth.dologin(this.form).subscribe((data)=> {
