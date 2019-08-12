@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(){
-    console.log(Date.now());
+    console.log(Math.floor(Date.now() / 1000));
     this.store.get('user').then((user) => {
       if(user == null){
         this.nav.navigateRoot('/login');
