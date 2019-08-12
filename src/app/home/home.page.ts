@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(){
+    console.log(Date.now());
     this.store.get('user').then((user) => {
       if(user == null){
         this.nav.navigateRoot('/login');
