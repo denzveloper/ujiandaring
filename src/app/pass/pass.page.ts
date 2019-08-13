@@ -43,7 +43,9 @@ export class PassPage implements OnInit {
   }
 
   back(){
+    this.menu.enable(true);
     this.route.navigate(['/profil']);
+    // this.nav.navigateRoot('/login');
   }
 
   gantimodal(){

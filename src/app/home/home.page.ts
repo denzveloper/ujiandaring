@@ -41,7 +41,6 @@ export class HomePage implements OnInit {
   }
 
   beginexam(){
-    // if(th)
     this.nav.navigateRoot('/soal');
   }
 
