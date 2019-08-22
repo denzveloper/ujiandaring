@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { IonSlides, NavController, AlertController, MenuController, ToastController, LoadingController } from '@ionic/angular';
 import { interval } from 'rxjs';
+import "hammerjs";
 
 @Component({
   selector: 'app-soal',
@@ -88,15 +89,17 @@ export class SoalPage implements OnInit {
         this.nav.navigateRoot('/login');
       }else{
         await this.store.get('soal').then(async soal => {
+          await this.store.get('times').then(times => {
+            this.duration = parseInt(times);
+          });
+          if(this.duration == 0){
+            this.duration = user.data_soal.waktu * 60;
+          }
           if(soal){
             this.soal = soal;
             console.log(this.soal);
-            await this.store.get('soal').then(times => {
-            this.duration = times;
-          });
           }else{
             this.soal = user.data_soal.soal;
-            this.duration = user.data_soal.waktu * 60;
             console.log(this.soal);
           }
         });
@@ -105,6 +108,7 @@ export class SoalPage implements OnInit {
         let counting = interval(1000).subscribe((val) => {
           this.time = this.time - 1;
           this.store.set('times', this.time);
+          // console.log(this.time);
           // var stat = val;
           if(this.time == 0) {
             this.timeover();
@@ -356,5 +360,22 @@ export class SoalPage implements OnInit {
     });
 
     await alert.present();
+  }
+  convertTime (miliseconds:  number) {
+    let sec: number = miliseconds;
+    let minutes, seconds: number;
+    let minutes_str, seconds_str: string;
+
+    // hours = Math.floor(((sec % 31536000) % 86400) / 3600);
+    // hours_str = (hours <=9) ? '0' + hours.toString() : hours.toString() ;
+
+    minutes = Math.floor((((sec % 31536000) % 86400) % 3600) / 60);
+    minutes_str = (minutes <=9) ? '0' + minutes.toString() : minutes.toString() ;
+
+    seconds = Math.floor(((sec % 31536000) % 86400) % 3600) % 60;
+    seconds_str = (seconds <=9) ? '0' + seconds.toString() : seconds.toString() ;
+
+    // return hours_str +':'+ minutes_str +':'+ seconds_str;
+    return minutes_str +':'+ seconds_str;
   }
 }
