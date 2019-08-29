@@ -361,6 +361,7 @@ export class SoalPage implements OnInit {
 
     await alert.present();
   }
+  
   convertTime (miliseconds:  number) {
     let sec: number = miliseconds;
     let minutes, seconds: number;
