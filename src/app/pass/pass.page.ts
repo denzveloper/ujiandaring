@@ -69,9 +69,9 @@ export class PassPage implements OnInit {
       });
       this.route.navigate(['/profil']);
     }else{
-      this.presentLoading();
       this.presentAlert().then(async (res) =>{
         if(res.data){
+          this.presentLoading();
           await this.store.get('user').then((user)=> {
             var sending = {
               nim: user.detail.nim,
