@@ -23,12 +23,16 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
     console.log(Math.floor(Date.now() / 1000));
-    this.store.get('user').then((user) => {
+    this.store.get('user').then(async (user) => {
       if(user == null){
         this.nav.navigateRoot('/login');
       }else{
-          this.detail = user.detail;
-          this.readysoal = user.data_soal;
+        await this.store.get('times').then(async (time)=>{
+          console.log("waktu"+time);
+          if(time!=null){this.nav.navigateRoot('/soal');}
+        });
+        this.detail = user.detail;
+        this.readysoal = user.data_soal;
         this.store.get('hasil').then((user) => {
           if(user == null){
             this.hasil = false;

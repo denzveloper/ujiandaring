@@ -68,6 +68,7 @@ export class SoalPage implements OnInit {
   public sendSoal: any;
   public soalDetail: any;
   isLoading = false;
+  counting: any;
   data: any;
 
   constructor(
@@ -91,7 +92,8 @@ export class SoalPage implements OnInit {
         await this.store.get('soal').then(async soal => {
           this.duration = user.data_soal.waktu * 60;
           await this.store.get('times').then(async times => {
-            this.duration = parseInt(times);
+            if(times)
+            this.duration = parseInt(times)-1;
           });
           if(soal){
             this.soal = soal;
@@ -103,14 +105,14 @@ export class SoalPage implements OnInit {
         });
         this.time = this.duration;
         // this.time = 10;
-        let counting = interval(1000).subscribe((val) => {
+        this.counting = interval(1000).subscribe((val) => {
           this.time = this.time - 1;
           this.store.set('times', this.time);
           // console.log(this.time);
           // var stat = val;
           if(this.time == 0) {
             this.timeover();
-            counting.unsubscribe();
+            this.counting.unsubscribe();
           }
         });
       }
@@ -219,7 +221,7 @@ export class SoalPage implements OnInit {
       console.log(res);
       if(res.data){
         this.presentLoading();
-
+        this.counting.unsubscribe();
         await this.store.get('user').then((data) =>{
           this.require = data.detail;
           this.soalDetail = data.data_soal;

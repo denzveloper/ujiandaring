@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController} from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { NavController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -62,12 +62,16 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    // exitKiosk();
     this.store.get('user').then(user => {
       if(user != null){
         this.nav.navigateRoot('/home');
       }});
   }
 
+  exit(){
+    navigator['app'].exitApp();
+  }
 
   login(){
     if(this.form.nim == "" || this.form.password == ""){
