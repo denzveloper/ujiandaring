@@ -53,6 +53,7 @@ export class AppComponent {
     console.log('Loging out');
     this.store.remove('user');
     this.store.remove('soal');
+    this.store.remove('times');
     this.nav.navigateRoot('/login');
   }
 }

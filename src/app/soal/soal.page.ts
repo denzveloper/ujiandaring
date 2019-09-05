@@ -89,12 +89,10 @@ export class SoalPage implements OnInit {
         this.nav.navigateRoot('/login');
       }else{
         await this.store.get('soal').then(async soal => {
-          await this.store.get('times').then(times => {
+          this.duration = user.data_soal.waktu * 60;
+          await this.store.get('times').then(async times => {
             this.duration = parseInt(times);
           });
-          if(this.duration == 0){
-            this.duration = user.data_soal.waktu * 60;
-          }
           if(soal){
             this.soal = soal;
             console.log(this.soal);

@@ -28,6 +28,7 @@ export class HasilPage implements OnInit {
           this.hasil = data;
         });
         this.store.remove('soal');
+        this.store.remove('times');
         this.store.get('user').then((data) => {
           var temp = {
             detail: data.detail,
