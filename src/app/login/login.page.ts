@@ -3,6 +3,7 @@ import { AlertController, LoadingController} from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { NavController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+declare var KioskPlugin: any;
 
 @Component({
   selector: 'app-login',
@@ -62,15 +63,20 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    // exitKiosk();
-    this.store.get('user').then(user => {
-      if(user != null){
-        this.nav.navigateRoot('/home');
-      }});
+    KioskPlugin.isSetAsLauncher(function(isLauncher){
+      if(isLauncher){
+        this.store.get('user').then(user => {
+          if(user != null){
+            this.nav.navigateRoot('/home');
+        }});
+      }else{
+        KioskPlugin.exitKiosk();
+      }
+    });
   }
 
   exit(){
-    navigator['app'].exitApp();
+    KioskPlugin.exitKiosk();
   }
 
   login(){
