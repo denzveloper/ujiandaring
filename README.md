@@ -10,7 +10,13 @@ see references:
 
 ## API
 1. Get Info User (Ex. Json):
-    > POST to Server is: "nim, password"
+    ~~~~
+    {
+        "nim":5346464,
+        "password":"56464654"
+    }
+    ~~~~
+    Result:
     ~~~~
     {
         "data": {
@@ -97,7 +103,86 @@ see references:
     ~~~~
 
 2. Get Result Exam (Ex. Json):
-    > POST to Server is: *Same as **Get Info User[1]***
+    > POST to Server is: 
+    ~~~~
+    {
+        "user":{
+            "nama":"Acerola-Orion Heart-Under-Blade",
+            "nim":598,
+            "kelas":"D3TI",
+            "photo":"https://www.gravatar.com/avatar/4013c583d3f3e4381cc0d384c8c70a51?s=150"
+        },
+        "data":{
+            "idsoal":666,
+            "idmapel":999,
+            "mapel":"Projek",
+            "dosen":"Bambang",
+            "waktu":60,
+            "tanggal":"10 Oktober 2010",
+            "soal":[
+                {
+                    "id":0,
+                    "quest":"Sistem operasi dengan Maskot Pinguin?",
+                    "type":1,
+                    "jawaban":"5645645"
+                },
+                {
+                    "id":1,
+                    "quest":"Alternatif Microsoft Office Word?",
+                    "type":1,
+                    "jawaban":"45646456"
+                },
+                {
+                    "id":2,
+                    "quest":"Letak Politeknik Negeri Indramayu?",
+                    "type":2,
+                    "jawaban":[
+                    {
+                        "pilihan":"Lohbener",
+                        "selected":false
+                    },
+                    {
+                        "pilihan":"Lohsalah",
+                        "selected":false
+                    },
+                    {
+                        "pilihan":"LohGimanani?",
+                        "selected":true
+                    },
+                    {
+                        "pilihan":"Plumbon",
+                        "selected":false
+                    }
+                    ]
+                },
+                {
+                    "id":3,
+                    "quest":"Jurusan Politeknik Negeri Indramayu?",
+                    "type":3,
+                    "jawaban":[
+                    {
+                        "pilihan":"Teknik Informatika",
+                        "selected":false
+                    },
+                    {
+                        "pilihan":"Teknik Perkapalan",
+                        "selected":false
+                    },
+                    {
+                        "pilihan":"Teknik Spesialis Dingin",
+                        "selected":true
+                    },
+                    {
+                        "pilihan":"Teknik Mesin",
+                        "selected":false
+                    }
+                    ]
+                }
+            ]
+        }
+    }
+    ~~~~
+    Result:
     ~~~~
     {
         "data": {

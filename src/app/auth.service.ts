@@ -11,10 +11,11 @@ export class AuthService {
     private http: HttpClient
   ) { }
   
-  // Make to native PHP POST like
-  // let body = new FormData();
-  // body.append('nim', form.nim);
-  // body.append('password', form.password);
+  // ::Make to PHP-POST リクエスト:
+  // ~ let body = new FormData();
+  // ~ body.append('nim', form.nim);
+  // ~ body.append('password', form.password);
+  // ::END - MAKE to PHP-POST リクエスト
 
   /*
     Usage:
