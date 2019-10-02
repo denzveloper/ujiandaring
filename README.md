@@ -18,6 +18,7 @@ see references:
     }
     ~~~~
     Result:
+    type: 1 => Essay, type: 2 => multi answer one select, type: 3 => multi answer multi select
     ~~~~
     {
         "data": {
@@ -105,6 +106,7 @@ see references:
 
 2. Get Result Exam (Ex. Json):
     > POST to Server is: 
+    Selected: true => Answer selected by user, Selected: false => Answer isnt selected by user
     ~~~~
     {
         "user":{
