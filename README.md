@@ -10,6 +10,7 @@ see references:
 
 ## API
 1. Get Info User (Ex. Json):
+    > POST to Server is: 
     ~~~~
     {
         "nim":5346464,
@@ -200,7 +201,19 @@ see references:
     ~~~~
 
 3. Get Result Password (Ex. Json):
-    > POST to Server is: "nim, password: {pasb[*password Before*], pasn[*password New*], pasc[*password Confirmation*]}"
+    > POST to Server is: 
+    pasb: *password Before*, pasn: *password New*, pasc: *new password Confirmation*
+    ~~~~
+    {
+        "nim":1603008,
+        "password":{
+            "pasb":"password",
+            "pasn":"mautauaja",
+            "pasc":"mautauaja"
+        }
+    }
+    ~~~~
+    Result:
     ~~~~
     {
         "meta": {
