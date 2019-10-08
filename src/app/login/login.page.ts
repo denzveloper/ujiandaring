@@ -3,6 +3,7 @@ import { AlertController, LoadingController} from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { NavController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+declare var KioskPlugin: any;
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,8 @@ export class LoginPage implements OnInit {
 
   isLoading = false;
   data:any;
+  isKiosk: boolean;
+  isLaunc: boolean;
   
   constructor(
     private alertController: AlertController,
@@ -70,10 +73,13 @@ export class LoginPage implements OnInit {
   }
 
   exit(){
-    navigator['app'].exitApp();
+    // navigator['app'].exitApp(); //Normal mode exit
+    KioskPlugin.exitKiosk(); //Kiosk mode exit
   }
 
-  login(){
+  async login(){
+    KioskPlugin.isInKiosk(function(kiosk){ this.isKiosk = kiosk });
+    KioskPlugin.isSetAsLauncher(function(kiosk){ this.isLaunc = kiosk });
     if(this.form.nim == "" || this.form.password == ""){
       this.form.nim = "";
       this.form.password = "";      
@@ -81,6 +87,9 @@ export class LoginPage implements OnInit {
         header: "Error",
         message: "Form harus diisi!"
       });
+    }else if((!this.isKiosk) && (!this.isLaunc)){
+      await this.presentAlert({header: "PERINGATAN", message: "Aplikasi tidak berjalan dimode Proteksi!\nPastikan jadi Launcher atau ikuti instruksi teknisi!"});
+      this.exit();
     }else{
       this.presentLoading();
       this.auth.dologin(this.form).subscribe((data)=> {
