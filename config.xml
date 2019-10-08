@@ -2,7 +2,7 @@
 <widget id="io.dzen.ujianonline" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Ujian Online</name>
     <description>Ujian berbasis jaringan menggunakan ponsel cerdas Android.</description>
-    <author email="dandyoctavian@gmail.com" href="https://denzveloper.github.io">IDENZVELOPER DzEN/DzEN</author>
+    <author email="dandyoctavian@gmail.com" href="https://denzveloper.github.io">i-DENZVELOPER DzEN/DzEN</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

@@ -88,7 +88,7 @@ export class LoginPage implements OnInit {
         message: "Form harus diisi!"
       });
     }else if((!this.isKiosk) && (!this.isLaunc)){
-      await this.presentAlert({header: "PERINGATAN", message: "Aplikasi tidak berjalan dimode Proteksi!\nPastikan jadi Launcher atau ikuti instruksi teknisi!"});
+      await this.presentAlert({header: "PERINGATAN", message: "Aplikasi tidak berjalan dimode Proteksi!\nPastikan aplikasi ini jadi Launcher atau ikuti instruksi teknisi!"});
       this.exit();
     }else{
       this.presentLoading();
